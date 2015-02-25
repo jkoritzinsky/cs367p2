@@ -86,7 +86,28 @@ public class DLinkedList<E> implements ListADT<E> {
 
 	public E remove(int pos) {
 		if(pos < 0 || pos >= numItems) throw new IndexOutOfBoundsException("pos");
-		return null;
+		E data;
+		if(pos == 0) {
+			data = head.getData();
+			head = head.getNext();
+		}
+		else if(pos == numItems - 1) {
+			data = tail.getData();
+			tail = tail.getPrev();
+		}
+		else {
+			Listnode<E> curr = head;
+			for(int i = 0; i < pos; ++ i) {
+				curr = curr.getNext();
+			}
+			Listnode<E> prev = curr.getPrev();
+			Listnode<E> next = curr.getNext();
+			prev.setNext(next);
+			next.setPrev(prev);
+			data = curr.getData();
+		}
+		--numItems;
+		return data;
 	}
 
 
