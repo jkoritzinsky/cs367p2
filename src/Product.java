@@ -17,6 +17,10 @@ public class Product {
      * @param rating rating of product out of 5
      */
 	public Product(String name, String category, int price, float rating){
+		this.name = name;
+		this.category = category;
+		this.price = price;
+		this.rating = rating;
 	}
 	
 	/** 
@@ -24,7 +28,7 @@ public class Product {
      * @return the name
      */
 	public String getName(){
-		return null;
+		return name;
 	}
 	
 	/** 
@@ -32,7 +36,7 @@ public class Product {
      * @return the category
      */
 	public String getCategory(){
-		return null;
+		return category;
 	}
 	
 	/** 
@@ -40,7 +44,7 @@ public class Product {
      * @return the price
      */
 	public int getPrice(){
-		return 0;
+		return price;
 	}
 	
 	/** 
@@ -48,14 +52,19 @@ public class Product {
      * @return the rating
      */
 	public float getRating(){
-		return 0;
+		return rating;
 	}
 	
 	/** 
      * Returns the Product's information in the following format: <NAME> [Price:$<PRICE> Rating:<RATING> stars]
      */
 	public String toString(){
-		return null;
+		StringBuilder builder = new StringBuilder();
+		builder.append(getName());
+		builder.append(" [Price:$").append(getPrice());
+		builder.append(" Rating:").append(getRating());
+		builder.append(" stars]");
+		return builder.toString();
 	}
 
 }
