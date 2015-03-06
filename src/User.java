@@ -89,7 +89,12 @@ public class User {
      * @throws InsufficientCreditException if price > credit 
      */
 	public boolean buy(String productName) throws InsufficientCreditException{
-		Product product = removeFromWishList(productName);
+		Product product = null;
+		for(int i = 0; i < wishList.size(); ++i) {
+			if(wishList.get(i).getName().equals(productName)) {
+				product = wishList.get(i);
+			}
+		}
 		if(product == null) return false;
 		if(product.getPrice() > getCredit()) throw new InsufficientCreditException();
 		credit -= product.getPrice();
