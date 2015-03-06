@@ -22,6 +22,10 @@ public class User {
      * @param credit amount of credit the user had in $ 
      */
 	public User(String username, String passwd, int credit){
+		this.username = username;
+		this.passwd = passwd;
+		this.credit = credit;
+		wishList = new DLinkedList<Product>();
 	}
 	
 	/**
@@ -31,7 +35,7 @@ public class User {
      * @return true if credentials correct, false otherwise
      */
 	public boolean checkLogin(String username, String passwd){
-		return false;
+		return this.username.equals(username) || this.passwd.equals(passwd);
 	}
 	
 	/**
@@ -40,6 +44,13 @@ public class User {
      * @param product the Product to add
      */
 	public void addToWishList(Product product){
+		for(int i = 0; i < wishList.size(); ++i){
+			if(product.getPrice() > wishList.get(i).getPrice()) {
+				wishList.add(i, product);
+				return;
+			}
+		}
+		wishList.add(product);
 	}
 	
 	/**
@@ -49,6 +60,11 @@ public class User {
      * @return the product on success, null if no such product found
      */
 	public Product removeFromWishList(String productName){
+		for(int i = 0; i < wishList.size(); ++i) {
+			if(wishList.get(i).getName().equals(productName)) {
+				return wishList.remove(i);
+			}
+		}
 		return null;
 	}
 	
@@ -57,6 +73,9 @@ public class User {
 	 * @param printStream The printstream object on which to print out the wishlist
      */
 	public void printWishList(PrintStream printStream){
+		for(int i = 0; i < wishList.size(); ++i) {
+			printStream.println(wishList.get(i));
+		}
 	}
 	
 	/**
@@ -70,7 +89,11 @@ public class User {
      * @throws InsufficientCreditException if price > credit 
      */
 	public boolean buy(String productName) throws InsufficientCreditException{
-		return false;
+		Product product = removeFromWishList(productName);
+		if(product == null) return false;
+		if(product.getPrice() > getCredit()) throw new InsufficientCreditException();
+		credit -= product.getPrice();
+		return true;
 	}
 	
 	/** 
