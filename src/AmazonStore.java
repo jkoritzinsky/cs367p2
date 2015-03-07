@@ -63,6 +63,12 @@ public class AmazonStore {
 	 * @returns the currentUser 
 	 */
 	public static User login(String username, String passwd){
+		for(int i = 0; i < users.size(); ++i) {
+			if(users.get(i).checkLogin(username, passwd)) {
+				currentUser = users.get(i);
+				return users.get(i);
+			}
+		}
 		return null;
 	}
 

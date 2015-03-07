@@ -35,7 +35,7 @@ public class User {
      * @return true if credentials correct, false otherwise
      */
 	public boolean checkLogin(String username, String passwd){
-		return this.username.equals(username) || this.passwd.equals(passwd);
+		return this.username.equals(username) && this.passwd.equals(passwd);
 	}
 	
 	/**
