@@ -186,7 +186,7 @@ public class AmazonStore {
 						printByCategory();
 					}
 					else if(commands[1].equals("wishlist")) {
-						currentUser.printWishList(System.out); //probably not the right format
+						currentUser.printWishList(System.out); 
 					}
 					else if(commands[1].equals("instock")) {
 						for(int i = 0; i < inStock.size(); ++i) {
@@ -219,6 +219,16 @@ public class AmazonStore {
 					break;
 
 				case 'r':
+					boolean foundProduct = false;
+					for(int i = 0; i < products.size(); ++i) {
+						if(products.get(i).getName().equals(commands[1])) {
+							currentUser.removeFromWishList(products.get(i).getName());
+							foundProduct = true;
+						}
+					}
+					if(!foundProduct) {
+						System.out.println("Product not found");
+					}
 					break;
 
 				case 'b':
