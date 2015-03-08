@@ -78,4 +78,11 @@ public class DLinkedListTests {
 		assertTrue(list.remove(1) == 5);
 		assertTrue(list.get(1) == 2);
 	}
+	
+	@Test
+	public void addAt0OnEmptyAddsCorrectly() {
+		DLinkedList<Integer> list = new DLinkedList<>();
+		list.add(0, 0);
+		assertTrue(list.get(0) == 0);
+	}
 }
