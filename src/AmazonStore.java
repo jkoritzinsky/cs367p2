@@ -82,6 +82,14 @@ public class AmazonStore {
 	 * @param fileName name of the file to read
 	 */
 	public static void loadProducts(String fileName){
+		Scanner fileScnr = new Scanner(fileName);
+		String line = "";
+		String[] splitLine;
+		while(fileScnr.hasNext()) {
+			line = fileScnr.nextLine();
+			splitLine = line.split("#");
+			products.add(new Product(splitLine[1], splitLine[2], 1, 1)); //second half not done
+		}
 	}
 
 	/**
