@@ -185,7 +185,7 @@ public class AmazonStore {
 				lastProduct = products.get(i);
 			}
 			else { //If the category was different
-				System.out.println(products.get(i).getCategory()); //print out the new category
+				System.out.println(products.get(i).getCategory() + ":"); //print out the new category
 				System.out.println(products.get(i).getName() + " [Price:$" + 
 						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
 				lastProduct = products.get(i);
@@ -217,7 +217,7 @@ public class AmazonStore {
 					continue;
 				}
 				switch(commands[0].charAt(0)){ //switch statement over different commands
-				case 'v':
+				case 'v': //For printing items
 					if(commands[1].equals("all")) { //checks if the user wants to print all items
 						printByCategory(); //prints all items
 					}
@@ -231,58 +231,62 @@ public class AmazonStore {
 					}
 					break;
 
-				case 's':
-					for(int i = 0; i < products.size(); ++i) {
-						if(commands[1].equals(products.get(i).getName())) {
+				case 's': //For finding items
+					for(int i = 0; i < products.size(); ++i) { //A loop over the products
+						if(products.get(i).getName().startsWith(commands[1])) { //checks if the product exists
 							System.out.println(products.get(i).toString());
 						}
 					}
 					break;
 
-				case 'a':
-					Product productToAdd = null;
-					for(int i = 0; i < products.size(); ++i) {
-						if(products.get(i).getName().equals(commands[1])) {
+				case 'a': // For adding products to the wishlist
+					Product productToAdd = null; //declares a dummy product to be assigned to the found product
+					for(int i = 0; i < products.size(); ++i) { // A loop over the products
+						if(products.get(i).getName().startsWith(commands[1])) { //checks if the product specified exists
 							productToAdd = products.get(i);
 						}
 					}
-					if(!productToAdd.equals(null)) {
-						currentUser.addToWishList(productToAdd);
+					if(!productToAdd.equals(null)) { //If the product was found
+						currentUser.addToWishList(productToAdd); //adds the product
+						System.out.println("Added to wishlist");
 					}
-					else {
+					else { //Will only occur if the product was not found
 						System.out.println("Product not found");
 					}
 					break;
 
-				case 'r':
-					Product removed = currentUser.removeFromWishList(commands[1]);
-					if(removed == null) {
+				case 'r': //For removing products from the wishlist
+					Product removed = currentUser.removeFromWishList(commands[1]); //will set removed to null if the product is not on the wishlist, otherwise it will be set to the item removed
+					if(removed == null) {  //If the product was not found
 						System.out.println("Product not found");
+					}
+					else { //Otherwise reports successful removal
+						System.out.println("Removed from wishlist");
 					}
 					break;
 
-				case 'b':
-					for(int i = 0; i < inStock.size(); ++i) {
-						boolean success = false;
+				case 'b': //For buying items
+					for(int i = 0; i < inStock.size(); ++i) { //A loop over the items in stock
+						boolean success = false; //declares a boolean to check if the buy is successful
 						try {
-							currentUser.buy(inStock.get(i).getName());
-							success = true;
+							currentUser.buy(inStock.get(i).getName()); //attempts to buy the item
+							success = true; //only occurs if buy was successful
 						}
-						catch(InsufficientCreditException ex) {
+						catch(InsufficientCreditException ex) { //will trigger if the user had insufficient funds
 							System.out.println("Insufficient funds for " + inStock.get(i).getName());
 						}
-						if(success) {
+						if(success) { //reports successful buy
 							System.out.println("Bought " + inStock.get(i).getName());
 						}
 					}
 					break;
 
-				case 'c':
+				case 'c': //returns the credit the user has
 					System.out.println("$" + currentUser.getCredit());
 					break;
 
-				case 'l':
-					done = true;
+				case 'l': //logs the user out
+					done = true; //allows the loop to exit
 					System.out.println("Logged Out");
 					break;
 
