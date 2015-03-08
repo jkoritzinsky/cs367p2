@@ -176,6 +176,7 @@ public class AmazonStore {
 	 * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
 	 */
 	public static void printByCategory(){
+		System.out.println();
 		Product lastProduct = products.get(0); //Allows the user to check if the category is the same as the previous product
 		System.out.println(products.get(0).getCategory() + ":"); //Prints out the first category
 		for(int i = 0; i < products.size(); i++) {  //A loop over the products
@@ -185,6 +186,7 @@ public class AmazonStore {
 				lastProduct = products.get(i); //sets the most recent product
 			}
 			else { //If the category was different
+				System.out.println();
 				System.out.println(products.get(i).getCategory() + ":"); //print out the new category
 				System.out.println(products.get(i).getName() + " [Price:$" + 
 						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
