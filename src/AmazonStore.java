@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
@@ -82,13 +84,18 @@ public class AmazonStore {
 	 * @param fileName name of the file to read
 	 */
 	public static void loadProducts(String fileName){
-		Scanner fileScnr = new Scanner(fileName);
-		String line = "";
-		String[] splitLine;
-		while(fileScnr.hasNext()) {
-			line = fileScnr.nextLine();
-			splitLine = line.split("#");
-			products.add(new Product(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]), Float.parseFloat(splitLine[4]))); 
+		try(Scanner fileScnr = new Scanner(new File(fileName)))
+		{
+			String line = "";
+			String[] splitLine;
+			while(fileScnr.hasNext()) {
+				line = fileScnr.nextLine();
+				splitLine = line.split("#");
+				products.add(new Product(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]), Float.parseFloat(splitLine[4]))); 
+			}
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println("Error: Cannot access file");
 		}
 	}
 
@@ -101,13 +108,18 @@ public class AmazonStore {
 	 * @param fileName name of the file to read
 	 */
 	public static void loadUser(String fileName){
-		Scanner fileScnr = new Scanner(fileName);
-		String line = "";
-		String[] splitLine;
-		while(fileScnr.hasNext()) {
-			line = fileScnr.nextLine();
-			splitLine = line.split("#");
-			users.add(new User(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]))); 
+		try(Scanner fileScnr = new Scanner(new File(fileName)))
+		{
+			String line = "";
+			String[] splitLine;
+			while(fileScnr.hasNext()) {
+				line = fileScnr.nextLine();
+				splitLine = line.split("#");
+				users.add(new User(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]))); 
+			}
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println("Error: Cannot access file");
 		}
 	}
 
