@@ -88,7 +88,7 @@ public class AmazonStore {
 		while(fileScnr.hasNext()) {
 			line = fileScnr.nextLine();
 			splitLine = line.split("#");
-			products.add(new Product(splitLine[1], splitLine[2], 1, 1)); //second half not done
+			products.add(new Product(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]), Float.parseFloat(splitLine[4]))); 
 		}
 	}
 
@@ -101,6 +101,14 @@ public class AmazonStore {
 	 * @param fileName name of the file to read
 	 */
 	public static void loadUser(String fileName){
+		Scanner fileScnr = new Scanner(fileName);
+		String line = "";
+		String[] splitLine;
+		while(fileScnr.hasNext()) {
+			line = fileScnr.nextLine();
+			splitLine = line.split("#");
+			users.add(new User(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]))); 
+		}
 	}
 
 	/**
@@ -119,6 +127,19 @@ public class AmazonStore {
      * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
      */
 	public static void printByCategory(){
+		Product lastProduct = products.get(0);
+		System.out.println(products.get(0).getCategory());
+		for(int i = 0; i < products.size(); i++) {
+			if(products.get(i).getCategory().equals(lastProduct.getCategory())) {
+				System.out.println(products.get(i).getName() + " [Price:$" + 
+			products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
+			}
+			else {
+				System.out.println(products.get(i).getCategory());
+				System.out.println(products.get(i).getName() + " [Price:$" + 
+						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
+			}
+		}
 	}
 
 	
@@ -146,6 +167,19 @@ public class AmazonStore {
 				}
 				switch(commands[0].charAt(0)){
 				case 'v':
+					if(commands[1].equals("all")) {
+						for(int i = 0; i < inStock.size(); ++i) {
+							products.add(inStock.get(1)); 
+						}
+						printByCategory();
+					}
+					else if(commands[1].equals("wishlist")) {
+						currentUser.printWishList(System.out);
+					}
+					else if(commands[1].equals("instock")) {
+						products = inStock;
+						printByCategory();
+					}
 					break;
 
 				case 's':
