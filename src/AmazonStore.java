@@ -219,14 +219,8 @@ public class AmazonStore {
 					break;
 
 				case 'r':
-					boolean foundProduct = false;
-					for(int i = 0; i < products.size(); ++i) {
-						if(products.get(i).getName().equals(commands[1])) {
-							currentUser.removeFromWishList(products.get(i).getName());
-							foundProduct = true;
-						}
-					}
-					if(!foundProduct) {
+					Product removed = currentUser.removeFromWishList(commands[1]);
+					if(removed == null) {
 						System.out.println("Product not found");
 					}
 					break;
