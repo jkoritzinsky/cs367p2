@@ -271,8 +271,7 @@ public class AmazonStore {
 					for(int i = 0; i < inStock.size(); ++i) { //A loop over the items in stock
 						boolean success = false; //declares a boolean to check if the buy is successful
 						try {
-							currentUser.buy(inStock.get(i).getName()); //attempts to buy the item
-							success = true; //only occurs if buy was successful
+							success = currentUser.buy(inStock.get(i).getName()); //attempts to buy the item
 						}
 						catch(InsufficientCreditException ex) { //will trigger if the user had insufficient funds
 							System.out.println("Insufficient funds for " + inStock.get(i).getName());
