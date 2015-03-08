@@ -95,6 +95,7 @@ public class User {
 		for(int i = 0; i < wishList.size(); ++i) { //A loop over the wishlist
 			if(wishList.get(i).getName().equals(productName)) { //if the product given is in the wishlist
 				product = wishList.get(i); //sets the product to the found product
+				wishList.remove(i);
 				break;
 			}
 		}
