@@ -242,7 +242,7 @@ public class AmazonStore {
 				case 'a': // For adding products to the wishlist
 					Product productToAdd = null; //declares a dummy product to be assigned to the found product
 					for(int i = 0; i < products.size(); ++i) { // A loop over the products
-						if(products.get(i).getName().startsWith(commands[1])) { //checks if the product specified exists
+						if(products.get(i).getName().equals(commands[1])) { //checks if the product specified exists
 							productToAdd = products.get(i);
 						}
 					}
