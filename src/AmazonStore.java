@@ -5,7 +5,7 @@
 // Semester:         CS367 Spring 2015
 //
 // Author:           Jeremy Koritzinsky
-// Email:            j.koritzinsky@wisc.edu
+// Email:            jeremy.koritzinsky@wisc.edu
 // CS Login:         koritzinsky
 // Lecturer's Name:  Skrentny
 //
