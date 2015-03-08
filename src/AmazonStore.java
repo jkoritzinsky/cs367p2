@@ -118,7 +118,7 @@ public class AmazonStore {
 			while(fileScnr.hasNext()) {
 				line = fileScnr.nextLine();
 				splitLine = line.split("#");
-				products.add(new Product(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]), Float.parseFloat(splitLine[4]))); 
+				products.add(new Product(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]), Float.parseFloat(splitLine[3]))); 
 			}
 		}
 		catch(FileNotFoundException ex) {
@@ -139,10 +139,20 @@ public class AmazonStore {
 		{
 			String line = "";
 			String[] splitLine;
-			while(fileScnr.hasNext()) {
+			User newUser = null;
+			if(fileScnr.hasNextLine()) {
 				line = fileScnr.nextLine();
 				splitLine = line.split("#");
-				users.add(new User(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]))); 
+				users.add(newUser = new User(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]))); 
+			}
+			while(fileScnr.hasNextLine()) {
+				line = fileScnr.nextLine();
+				for(int i = 0; i < products.size(); ++i) {
+					if(line.equals(products.get(i).getName())) {
+						newUser.addToWishList(products.get(i));
+						break;
+					}
+				}
 			}
 		}
 		catch(FileNotFoundException ex) {
