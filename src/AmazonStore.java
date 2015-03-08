@@ -222,6 +222,19 @@ public class AmazonStore {
 					break;
 
 				case 'b':
+					for(int i = 0; i < inStock.size(); ++i) {
+						boolean success = false;
+						try {
+							currentUser.buy(inStock.get(i).getName());
+							success = true;
+						}
+						catch(InsufficientCreditException ex) {
+							System.out.println("Insufficient funds for " + inStock.get(i).getName());
+						}
+						if(success) {
+							System.out.println("Bought " + inStock.get(i).getName());
+						}
+					}
 					break;
 
 				case 'c':
