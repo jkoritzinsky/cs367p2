@@ -91,7 +91,7 @@ public class AmazonStore {
 			while(fileScnr.hasNext()) {
 				line = fileScnr.nextLine();
 				splitLine = line.split("#");
-				products.add(new Product(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]), Float.parseFloat(splitLine[4]))); 
+				products.add(new Product(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]), Float.parseFloat(splitLine[3]))); 
 			}
 		}
 		catch(FileNotFoundException ex) {
