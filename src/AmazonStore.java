@@ -193,6 +193,7 @@ public class AmazonStore {
 				lastProduct = products.get(i); //sets the most recent product
 			}
 		}
+		System.out.println();
 	}
 
 
