@@ -1,8 +1,35 @@
+///////////////////////////////////////////////////////////////////////////////
+//                   ALL STUDENTS COMPLETE THESE SECTIONS
+// Title:            AmazonStore
+// Files:            AmazonStore, DLinkedList, Product, User, InsufficientCreditException 
+// Semester:         CS367 Spring 2015
+//
+// Author:           Jeremy Koritzinsky
+// Email:            j.koritzinsky@wisc.edu
+// CS Login:         koritzinsky
+// Lecturer's Name:  Skrentny
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ////////////////////
+// Pair Partner:     Jeffrey Tucker
+// Email:            jetucker@wisc.edu
+// CS Login:         jtucker
+// Lecturer's Name:  Skrentny
+//
+//////////////////////////// 80 columns wide //////////////////////////////////
+
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-
+/**
+ * The main class including the command line for user commands
+ *
+ * <p>Bugs: None known
+ *
+ * @authors Jeremy Koritzinsky and Jeffrey Tucker
+ */
 public class AmazonStore {
 
 	//Store record of users and products
