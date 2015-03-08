@@ -92,13 +92,13 @@ public class AmazonStore {
 	 * @returns the currentUser 
 	 */
 	public static User login(String username, String passwd){
-		for(int i = 0; i < users.size(); ++i) {
-			if(users.get(i).checkLogin(username, passwd)) {
-				currentUser = users.get(i);
-				return users.get(i);
+		for(int i = 0; i < users.size(); ++i) { // A loop over the users
+			if(users.get(i).checkLogin(username, passwd)) { //checks if the user credentials match
+				currentUser = users.get(i); // If successful, logs the user in
+				return users.get(i); 
 			}
 		}
-		return null;
+		return null; //returns null if the credentials were incorrect
 	}
 
 	/**
@@ -166,17 +166,19 @@ public class AmazonStore {
 	 * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
 	 */
 	public static void printByCategory(){
-		Product lastProduct = products.get(0);
-		System.out.println(products.get(0).getCategory());
-		for(int i = 0; i < products.size(); i++) {
-			if(products.get(i).getCategory().equals(lastProduct.getCategory())) {
+		Product lastProduct = products.get(0); //Allows the user to check if the category is the same as the previous product
+		System.out.println(products.get(0).getCategory() + ":"); //Prints out the first category
+		for(int i = 0; i < products.size(); i++) {  //A loop over the products
+			if(products.get(i).getCategory().equals(lastProduct.getCategory())) { //checks if the category has changed
 				System.out.println(products.get(i).getName() + " [Price:$" + 
 						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
+				lastProduct = products.get(i);
 			}
-			else {
-				System.out.println(products.get(i).getCategory());
+			else { //If the category was different
+				System.out.println(products.get(i).getCategory()); //print out the new category
 				System.out.println(products.get(i).getName() + " [Price:$" + 
 						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
+				lastProduct = products.get(i);
 			}
 		}
 	}
@@ -190,33 +192,30 @@ public class AmazonStore {
 	public static void userMenu(ListADT<Product> inStock){
 
 		boolean done = false;
-		while (!done) 
+		while (!done) // Will loop until the user quits
 		{
-			System.out.print("Enter option : ");
-			String input = stdin.nextLine();
+			System.out.print("Enter option : "); // prompts the user for commands
+			String input = stdin.nextLine(); //accepts user input
 
 			//only do something if the user enters at least one character
 			if (input.length() > 0) 
 			{
 				String[] commands = input.split(":");//split on colon, because names have spaces in them
-				if(commands[0].length()>1)
+				if(commands[0].length()>1) //only commands beginning with a single character
 				{
 					System.out.println("Invalid Command");
 					continue;
 				}
-				switch(commands[0].charAt(0)){
+				switch(commands[0].charAt(0)){ //switch statement over different commands
 				case 'v':
-					if(commands[1].equals("all")) {
-						for(int i = 0; i < inStock.size(); ++i) {
-							products.add(inStock.get(1)); 
-						}
-						printByCategory();
+					if(commands[1].equals("all")) { //checks if the user wants to print all items
+						printByCategory(); //prints all items
 					}
-					else if(commands[1].equals("wishlist")) {
-						currentUser.printWishList(System.out); 
+					else if(commands[1].equals("wishlist")) { //checks if the user wants to print their wishlist
+						currentUser.printWishList(System.out); //prints all items on the wishlist
 					}
-					else if(commands[1].equals("instock")) {
-						for(int i = 0; i < inStock.size(); ++i) {
+					else if(commands[1].equals("instock")) { //checks if the user wants to print the items in stock
+						for(int i = 0; i < inStock.size(); ++i) { // a loop over the instock items
 							System.out.println(inStock.get(i).toString());
 						}
 					}
