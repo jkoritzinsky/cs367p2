@@ -47,7 +47,7 @@ public class User {
      */
 	public void addToWishList(Product product){
 		for(int i = 0; i < wishList.size(); ++i){ //A loop over the wishlist
-			if(product.getPrice() > wishList.get(i).getPrice()) { //Makes sure if the price order is correct
+			if(product.getPrice() >= wishList.get(i).getPrice()) { //Makes sure if the price order is correct
 				wishList.add(i, product); // adds at the current loop position
 				return;
 			}
