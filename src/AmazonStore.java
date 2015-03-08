@@ -246,7 +246,7 @@ public class AmazonStore {
 							productToAdd = products.get(i);
 						}
 					}
-					if(!productToAdd.equals(null)) { //If the product was found
+					if(productToAdd != null) { //If the product was found
 						currentUser.addToWishList(productToAdd); //adds the product
 						System.out.println("Added to wishlist");
 					}
