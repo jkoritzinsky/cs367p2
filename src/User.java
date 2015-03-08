@@ -92,16 +92,18 @@ public class User {
      */
 	public boolean buy(String productName) throws InsufficientCreditException{
 		Product product = null; //declares a product to copy a product from the wishlist
+		int indexToRemove = 0;
 		for(int i = 0; i < wishList.size(); ++i) { //A loop over the wishlist
 			if(wishList.get(i).getName().equals(productName)) { //if the product given is in the wishlist
 				product = wishList.get(i); //sets the product to the found product
-				wishList.remove(i);
+				indexToRemove = i;
 				break;
 			}
 		}
 		if(product == null) return false; //checks if the product was not found
 		if(product.getPrice() > getCredit()) throw new InsufficientCreditException(); //If the user doesn't have enough money
 		credit -= product.getPrice(); //spends the money
+		wishList.remove(indexToRemove);
 		return true;
 	}
 	
