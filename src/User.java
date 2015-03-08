@@ -93,6 +93,7 @@ public class User {
 		for(int i = 0; i < wishList.size(); ++i) {
 			if(wishList.get(i).getName().equals(productName)) {
 				product = wishList.get(i);
+				break;
 			}
 		}
 		if(product == null) return false;
