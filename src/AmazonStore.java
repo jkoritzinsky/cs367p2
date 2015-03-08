@@ -142,7 +142,7 @@ public class AmazonStore {
 			while(fileScnr.hasNext()) {
 				line = fileScnr.nextLine();
 				splitLine = line.split("#");
-				users.add(new User(splitLine[1], splitLine[2], Integer.parseInt(splitLine[3]))); 
+				users.add(new User(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]))); 
 			}
 		}
 		catch(FileNotFoundException ex) {
