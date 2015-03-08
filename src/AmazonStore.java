@@ -235,6 +235,7 @@ public class AmazonStore {
 					break;
 
 				case 'c':
+					System.out.println("$" + currentUser.getCredit());
 					break;
 
 				case 'l':
