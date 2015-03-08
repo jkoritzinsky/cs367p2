@@ -139,10 +139,20 @@ public class AmazonStore {
 		{
 			String line = "";
 			String[] splitLine;
-			while(fileScnr.hasNext()) {
+			User newUser = null;
+			if(fileScnr.hasNextLine()) {
 				line = fileScnr.nextLine();
 				splitLine = line.split("#");
-				users.add(new User(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]))); 
+				users.add(newUser = new User(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]))); 
+			}
+			while(fileScnr.hasNextLine()) {
+				line = fileScnr.nextLine();
+				for(int i = 0; i < products.size(); ++i) {
+					if(line.equals(products.get(i).getName())) {
+						newUser.addToWishList(products.get(i));
+						break;
+					}
+				}
 			}
 		}
 		catch(FileNotFoundException ex) {
