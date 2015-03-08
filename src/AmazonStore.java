@@ -111,17 +111,17 @@ public class AmazonStore {
 	 * @param fileName name of the file to read
 	 */
 	public static void loadProducts(String fileName){
-		try(Scanner fileScnr = new Scanner(new File(fileName)))
+		try(Scanner fileScnr = new Scanner(new File(fileName))) //A scanner for the file
 		{
 			String line = "";
-			String[] splitLine;
-			while(fileScnr.hasNext()) {
-				line = fileScnr.nextLine();
-				splitLine = line.split("#");
+			String[] splitLine; //A string array for the split of line
+			while(fileScnr.hasNext()) { //runs over the whole file
+				line = fileScnr.nextLine(); 
+				splitLine = line.split("#"); 
 				products.add(new Product(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]), Float.parseFloat(splitLine[3]))); 
 			}
 		}
-		catch(FileNotFoundException ex) {
+		catch(FileNotFoundException ex) { //if the file doesn't exist
 			System.out.println("Error: Cannot access file");
 		}
 	}
@@ -135,27 +135,27 @@ public class AmazonStore {
 	 * @param fileName name of the file to read
 	 */
 	public static void loadUser(String fileName){
-		try(Scanner fileScnr = new Scanner(new File(fileName)))
+		try(Scanner fileScnr = new Scanner(new File(fileName))) // A scanner for the user file
 		{
 			String line = "";
-			String[] splitLine;
+			String[] splitLine; //A string array for the split of line
 			User newUser = null;
-			if(fileScnr.hasNextLine()) {
-				line = fileScnr.nextLine();
-				splitLine = line.split("#");
+			if(fileScnr.hasNextLine()) { //runs once to add user
+				line = fileScnr.nextLine(); 
+				splitLine = line.split("#"); 
 				users.add(newUser = new User(splitLine[0], splitLine[1], Integer.parseInt(splitLine[2]))); 
 			}
-			while(fileScnr.hasNextLine()) {
-				line = fileScnr.nextLine();
-				for(int i = 0; i < products.size(); ++i) {
-					if(line.equals(products.get(i).getName())) {
-						newUser.addToWishList(products.get(i));
+			while(fileScnr.hasNextLine()) { //runs for all the products under the user
+				line = fileScnr.nextLine(); 
+				for(int i = 0; i < products.size(); ++i) { //A loop over the products
+					if(line.equals(products.get(i).getName())) { //If the specified product exists
+						newUser.addToWishList(products.get(i)); //adds the product to the wishlist
 						break;
 					}
 				}
 			}
 		}
-		catch(FileNotFoundException ex) {
+		catch(FileNotFoundException ex) { //if the file doesn't exist
 			System.out.println("Error: Cannot access file");
 		}
 	}
@@ -182,13 +182,13 @@ public class AmazonStore {
 			if(products.get(i).getCategory().equals(lastProduct.getCategory())) { //checks if the category has changed
 				System.out.println(products.get(i).getName() + " [Price:$" + 
 						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
-				lastProduct = products.get(i);
+				lastProduct = products.get(i); //sets the most recent product
 			}
 			else { //If the category was different
 				System.out.println(products.get(i).getCategory() + ":"); //print out the new category
 				System.out.println(products.get(i).getName() + " [Price:$" + 
 						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
-				lastProduct = products.get(i);
+				lastProduct = products.get(i); //sets the most recent product
 			}
 		}
 	}
