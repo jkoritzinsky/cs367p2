@@ -125,26 +125,26 @@ public class AmazonStore {
 
 	/**
 	 * See sample outputs
-     * Prints the entire store inventory formatted by category
-     * The input text file for products is already grouped by category, use the same order as given in the text file 
-     * format:
-     * <CATEGORY1>
-     * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
-     * ...
-     * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
-     * 
-     * <CATEGORY2>
-     * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
-     * ...
-     * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
-     */
+	 * Prints the entire store inventory formatted by category
+	 * The input text file for products is already grouped by category, use the same order as given in the text file 
+	 * format:
+	 * <CATEGORY1>
+	 * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
+	 * ...
+	 * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
+	 * 
+	 * <CATEGORY2>
+	 * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
+	 * ...
+	 * <NAME> [Price:$<PRICE> Rating:<RATING> stars]
+	 */
 	public static void printByCategory(){
 		Product lastProduct = products.get(0);
 		System.out.println(products.get(0).getCategory());
 		for(int i = 0; i < products.size(); i++) {
 			if(products.get(i).getCategory().equals(lastProduct.getCategory())) {
 				System.out.println(products.get(i).getName() + " [Price:$" + 
-			products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
+						products.get(i).getPrice() + " Rating:" + products.get(i).getRating() + " stars]");
 			}
 			else {
 				System.out.println(products.get(i).getCategory());
@@ -154,7 +154,7 @@ public class AmazonStore {
 		}
 	}
 
-	
+
 	/**
 	 * Interacts with the user by processing commands
 	 * 
@@ -186,7 +186,7 @@ public class AmazonStore {
 						printByCategory();
 					}
 					else if(commands[1].equals("wishlist")) {
-						currentUser.printWishList(System.out);
+						currentUser.printWishList(System.out); 
 					}
 					else if(commands[1].equals("instock")) {
 						for(int i = 0; i < inStock.size(); ++i) {
@@ -196,18 +196,59 @@ public class AmazonStore {
 					break;
 
 				case 's':
+					for(int i = 0; i < products.size(); ++i) {
+						if(commands[1].equals(products.get(i).getName())) {
+							System.out.println(products.get(i).toString());
+						}
+					}
 					break;
 
 				case 'a':
+					Product productToAdd = null;
+					for(int i = 0; i < products.size(); ++i) {
+						if(products.get(i).getName().equals(commands[1])) {
+							productToAdd = products.get(i);
+						}
+					}
+					if(!productToAdd.equals(null)) {
+						currentUser.addToWishList(productToAdd);
+					}
+					else {
+						System.out.println("Product not found");
+					}
 					break;
 
 				case 'r':
+					boolean foundProduct = false;
+					for(int i = 0; i < products.size(); ++i) {
+						if(products.get(i).getName().equals(commands[1])) {
+							currentUser.removeFromWishList(products.get(i).getName());
+							foundProduct = true;
+						}
+					}
+					if(!foundProduct) {
+						System.out.println("Product not found");
+					}
 					break;
 
 				case 'b':
+					for(int i = 0; i < inStock.size(); ++i) {
+						boolean success = false;
+						try {
+							currentUser.buy(inStock.get(i).getName());
+							success = true;
+						}
+						catch(InsufficientCreditException ex) {
+							System.out.println("Insufficient funds for " + inStock.get(i).getName());
+						}
+						if(success) {
+							System.out.println("Bought " + inStock.get(i).getName());
+						}
+					}
 					break;
 
 				case 'c':
+					System.out.println("$" + currentUser.getCredit());
 					break;
 
 				case 'l':
