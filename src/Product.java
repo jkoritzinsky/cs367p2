@@ -2,11 +2,11 @@
  * Stores the name, category, price and rating of a product
  */
 public class Product {
-	
-	private String name;
-	private String category;
-	private int price;
-	private float rating;
+	//
+	private String name; //The name of the product
+	private String category; //The type of product
+	private int price; //How much the product costs
+	private float rating; //How well the product has been rated
 	
 	/**
      * Constructs a Product with a name, category, price and rating. 
@@ -17,6 +17,7 @@ public class Product {
      * @param rating rating of product out of 5
      */
 	public Product(String name, String category, int price, float rating){
+		//Initializes the variables of the product
 		this.name = name;
 		this.category = category;
 		this.price = price;
@@ -28,7 +29,7 @@ public class Product {
      * @return the name
      */
 	public String getName(){
-		return name;
+		return name; //Returns the product name
 	}
 	
 	/** 
@@ -36,7 +37,7 @@ public class Product {
      * @return the category
      */
 	public String getCategory(){
-		return category;
+		return category; //Returns the product category
 	}
 	
 	/** 
@@ -44,7 +45,7 @@ public class Product {
      * @return the price
      */
 	public int getPrice(){
-		return price;
+		return price; //Returns the product price
 	}
 	
 	/** 
@@ -52,19 +53,19 @@ public class Product {
      * @return the rating
      */
 	public float getRating(){
-		return rating;
+		return rating; //Returns the product rating
 	}
 	
 	/** 
      * Returns the Product's information in the following format: <NAME> [Price:$<PRICE> Rating:<RATING> stars]
      */
 	public String toString(){
-		StringBuilder builder = new StringBuilder();
-		builder.append(getName());
-		builder.append(" [Price:$").append(getPrice());
-		builder.append(" Rating:").append(getRating());
-		builder.append(" stars]");
-		return builder.toString();
+		StringBuilder builder = new StringBuilder(); //declares a builder to put together the string
+		builder.append(getName()); //adds the name of the product
+		builder.append(" [Price:$").append(getPrice()); //adds the price
+		builder.append(" Rating:").append(getRating()); //adds the rating
+		builder.append(" stars]"); //adds "stars" to the end of the rating
+		return builder.toString(); //returns the completed string
 	}
 
 }
