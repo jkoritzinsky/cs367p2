@@ -9,10 +9,10 @@ public class User {
 	//Random number generator, used for generateStock. DO NOT CHANGE
 	private static Random randGen = new Random(1234);
 	
-	private String username;
-	private String passwd;
-	private int credit;
-	private ListADT<Product> wishList;
+	private String username; //The name given to the user
+	private String passwd; //The password for the user
+	private int credit; //The amount of money the user has
+	private ListADT<Product> wishList; //A list of the products the user wants
 	
 	/**
      * Constructs a User instance with a name, password, credit and an empty wishlist. 
@@ -22,7 +22,8 @@ public class User {
      * @param credit amount of credit the user had in $ 
      */
 	public User(String username, String passwd, int credit){
-		this.username = username;
+		// initializes all of the variables for the user
+		this.username = username; 
 		this.passwd = passwd;
 		this.credit = credit;
 		wishList = new DLinkedList<Product>();
@@ -35,6 +36,7 @@ public class User {
      * @return true if credentials correct, false otherwise
      */
 	public boolean checkLogin(String username, String passwd){
+		//The check of credentials
 		return this.username.equals(username) && this.passwd.equals(passwd);
 	}
 	
@@ -44,13 +46,13 @@ public class User {
      * @param product the Product to add
      */
 	public void addToWishList(Product product){
-		for(int i = 0; i < wishList.size(); ++i){
-			if(product.getPrice() > wishList.get(i).getPrice()) {
-				wishList.add(i, product);
+		for(int i = 0; i < wishList.size(); ++i){ //A loop over the wishlist
+			if(product.getPrice() > wishList.get(i).getPrice()) { //Makes sure if the price order is correct
+				wishList.add(i, product); // adds at the current loop position
 				return;
 			}
 		}
-		wishList.add(product);
+		wishList.add(product); //If the added product was cheaper than all items on the wishlist
 	}
 	
 	/**
@@ -60,21 +62,21 @@ public class User {
      * @return the product on success, null if no such product found
      */
 	public Product removeFromWishList(String productName){
-		for(int i = 0; i < wishList.size(); ++i) {
-			if(wishList.get(i).getName().equals(productName)) {
-				return wishList.remove(i);
+		for(int i = 0; i < wishList.size(); ++i) { // A loop over the wishlist
+			if(wishList.get(i).getName().equals(productName)) { //finds the product specified
+				return wishList.remove(i); //removes the found product
 			}
 		}
-		return null;
+		return null; // returns null if product not found
 	}
 	
 	/**
      * Print each product in the user's wishlist in its own line using the PrintStream object passed in the argument
 	 * @param printStream The printstream object on which to print out the wishlist
      */
-	public void printWishList(PrintStream printStream){
-		for(int i = 0; i < wishList.size(); ++i) {
-			printStream.println(wishList.get(i));
+	public void printWishList(PrintStream printStream){ 
+		for(int i = 0; i < wishList.size(); ++i) { // A loop over the wishlist
+			printStream.println(wishList.get(i)); //Prints each item on the list
 		}
 	}
 	
@@ -89,16 +91,16 @@ public class User {
      * @throws InsufficientCreditException if price > credit 
      */
 	public boolean buy(String productName) throws InsufficientCreditException{
-		Product product = null;
-		for(int i = 0; i < wishList.size(); ++i) {
-			if(wishList.get(i).getName().equals(productName)) {
-				product = wishList.get(i);
+		Product product = null; //declares a product to copy a product from the wishlist
+		for(int i = 0; i < wishList.size(); ++i) { //A loop over the wishlist
+			if(wishList.get(i).getName().equals(productName)) { //if the product given is in the wishlist
+				product = wishList.get(i); //sets the product to the found product
 				break;
 			}
 		}
-		if(product == null) return false;
-		if(product.getPrice() > getCredit()) throw new InsufficientCreditException();
-		credit -= product.getPrice();
+		if(product == null) return false; //checks if the product was not found
+		if(product.getPrice() > getCredit()) throw new InsufficientCreditException(); //If the user doesn't have enough money
+		credit -= product.getPrice(); //spends the money
 		return true;
 	}
 	
@@ -107,7 +109,7 @@ public class User {
      * @return the credit
      */
 	public int getCredit(){
-		return credit;
+		return credit; //returns the user's money
 	}
 	
 	/**
@@ -117,7 +119,7 @@ public class User {
 	 * 
 	 * @returns list of products in stock 
 	 */
-	public ListADT<Product> generateStock() {
+	public ListADT<Product> generateStock() { 
 		ListADT<Product> inStock= new DLinkedList<Product>();
 
 		int size=wishList.size();
